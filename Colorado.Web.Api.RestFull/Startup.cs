@@ -32,6 +32,17 @@ namespace Colorado.Web.Api.RestFull
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			string[] urls = "*,*".Split(",");
+
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.WithOrigins(urls)
+									  .WithMethods("GET", "POST", "PUT")
+									  .AllowAnyHeader()
+									  .AllowAnyMethod()
+									  .AllowCredentials());
+			});
 
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
@@ -50,6 +61,7 @@ namespace Colorado.Web.Api.RestFull
 			#endregion
 			services.AddHttpContextAccessor();
 			services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
