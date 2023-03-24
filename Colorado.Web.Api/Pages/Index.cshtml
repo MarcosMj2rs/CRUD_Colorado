@@ -1,10 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Página Inicial";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card">
+    <div class="col-sm-12" style="padding:20px">
+        <a onclick="jQueryModalGet('?handler=CreateOrEdit','Criar Cliente')" class="btn bg-success">
+            Criar
+        </a>
+        <a id="reload" class="btn bg-warning">
+            Reload
+        </a>
+    </div>
+    <div id="viewAll" class="card-body table-responsive"></div>
 </div>
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#viewAll').load('?handler=ViewAllPartial');
+
+        });
+        $(function () {
+            $('#reload').on('click', function () {
+                $('#viewAll').load('?handler=ViewAllPartial');
+            });
+        });
+    </script>
+}
