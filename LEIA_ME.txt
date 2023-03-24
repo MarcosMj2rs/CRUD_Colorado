@@ -1,0 +1,47 @@
+LEIA-ME
+========================================================================================================================
+Criação de CRUD básico baseado na Arquitetura "Onion Architecture" e aplicação de pattern Repository
+
+========================================================================================================================
+Criar o Banco de dados(local), usuario e respectivas permissões (SGBD - Microsoft Sql Server EXPRESS) script abaixo:
+========================================================================================================================
+
+CREATE DATABASE ColoradoDB
+GO
+
+BEGIN TRAN
+
+	CREATE LOGIN ColoradoAdm WITH PASSWORD = 'Colorado@123'
+	GO
+
+	USE ColoradoDB;
+	GO
+
+	IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'ColoradoAdm')
+	BEGIN
+		CREATE USER [ColoradoAdm] FOR LOGIN [ColoradoAdm]
+		EXEC sp_addrolemember N'db_owner', N'ColoradoAdm'
+		EXEC master..sp_addsrvrolemember @loginame = N'ColoradoAdm', @rolename = N'sysadmin'
+	END;
+	GO
+
+	CREATE TABLE [dbo].[Cliente](
+		[Id]				INT		IDENTITY(1,1)	NOT NULL,
+		[CodigoCliente]		VARCHAR(20)				NULL,
+		[Nome]				VARCHAR(1000)			NULL,
+		[Endereco]			VARCHAR(2000)			NULL,
+		[Cidade]			VARCHAR(200)			NULL,
+		[UF]				CHAR(2)					NULL,
+		[DataCadastro]		DATETIME				NULL
+	CONSTRAINT [PK_History] PRIMARY KEY CLUSTERED 
+	(
+		[ID] ASC
+	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+	) ON [PRIMARY]
+COMMIT TRAN
+
+========================================================================================================================
+Swagger
+https://localhost:5001/swagger/index.html
+
+========================================================================================================================

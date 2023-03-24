@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h2>Delete (DELETE) uma linha</h2>
+                <h2>Formulário...</h2>
             </div>
         </div>
         <div class="row">
@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group">
                             <label for="introDataCadastro">Data Cadastro</label>
-                            <input type="text" id="introDataCadastro"
+                            <input type="date" id="introDataCadastro"
                                    class="form-control" />
                         </div>
                     </div>
@@ -150,6 +150,10 @@
 
 		// Call Web API to update cliente
 		$.ajax({
+			dataType: 'jsonp',
+			async: true,
+			await: true,
+			"crossDomain": true,
 			url: url,
 			type: 'POST',
 			contentType: "application/json;charset=utf-8",
@@ -170,10 +174,18 @@
 	function clienteAdd(cliente) {
 		// Call Web API to add a new cliente
 		$.ajax({
+			dataType: 'jsonp',
+			async: true,
+			await: true,
+			"crossDomain": true,
 			url: "https://localhost:5001/api/Cliente/AddAsync",
 			type: 'POST',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify(cliente),
+			headers: {
+				"Accept": "application/json",
+				"Access-Control-Allow-Origin": "*"
+			},
 			success: function (cliente) {
 				clienteAddSuccess(cliente);
 			},
@@ -214,10 +226,18 @@
 
 		// Call Web API to get a Cliente
 		$.ajax({
+			dataType: 'jsonp',
+			async: true,
+			await: true,
+			"crossDomain": true,
 			url: "https://localhost:5001/api/Cliente/GetByIdAsync",
 			type: 'POST',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify(id),
+			headers: {
+				"Accept": "application/json",
+				"Access-Control-Allow-Origin": "*"
+			},
 			success: function (id) {
 				clienteToFields(cliente);
 
@@ -322,6 +342,10 @@
 			type: 'POST',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify(id),
+			headers: {
+				"Accept": "application/json",
+				"Access-Control-Allow-Origin": "*"
+			},
 			success: function (id) {
 				clienteAddSuccess(id);
 			},
@@ -350,7 +374,7 @@
 			msg += "Message" + request.responseJSON.Message + "\n";
 		}
 
-		//alert(msg);
+		alert(msg);
 	}
 
 </script>

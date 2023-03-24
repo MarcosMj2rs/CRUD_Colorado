@@ -1,6 +1,5 @@
 ﻿using Colorado.Core.Entities;
 using Colorado.Core.Interfaces;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
