@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorado.Core", "Colorado.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorado.Infrastructure", "Colorado.Infrastructure\Colorado.Infrastructure.csproj", "{1DCB9683-EF29-4E54-935F-22A3E688D68D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorado.Web.Api.RestFull", "Colorado.Web.Api.RestFull\Colorado.Web.Api.RestFull.csproj", "{330B6CC5-D312-418D-B89C-9CD7596D869E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1DCB9683-EF29-4E54-935F-22A3E688D68D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCB9683-EF29-4E54-935F-22A3E688D68D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCB9683-EF29-4E54-935F-22A3E688D68D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330B6CC5-D312-418D-B89C-9CD7596D869E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330B6CC5-D312-418D-B89C-9CD7596D869E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330B6CC5-D312-418D-B89C-9CD7596D869E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330B6CC5-D312-418D-B89C-9CD7596D869E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
