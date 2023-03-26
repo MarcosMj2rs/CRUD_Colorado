@@ -1,6 +1,8 @@
 ﻿using Colorado.Core.Entities;
 using Colorado.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Colorado.Web.Api.Controller
@@ -20,27 +22,42 @@ namespace Colorado.Web.Api.Controller
 
 		[HttpPost]
 		[Route("GetByIdAsync")]
-		public async Task<IActionResult> GetByIdAsync(int id)
+		public async Task<IActionResult> GetByIdAsync([FromBody] Cliente cliente)
 		{
-			var data = await _cliente.GetByIdAsync(id);
-			return data is null ? null : Ok(data);
+			try
+			{
+				var data = await _cliente.GetByIdAsync(cliente.Id);
+				return Ok(data);
+			}
+			catch (WebException ex) { return BadRequest(ex.Message); }
+			catch (Exception ex) { return BadRequest(ex.Message); }
 		}
 
 		[HttpGet]
 		[Route("GetAllAsync")]
 		public async Task<IActionResult> GetAllAsync()
 		{
-			var data = await _cliente.GetAllAsync();
-			return data is null ? null : Ok(data);
+			try
+			{
+				var data = await _cliente.GetAllAsync();
+				return Ok(data);
+			}
+			catch (WebException ex) { return BadRequest(ex.Message); }
+			catch (Exception ex) { return BadRequest(ex.Message); }
 		}
 
 		[HttpPost]
 		[Route("AddAsync")]
 		public async Task<IActionResult> AddAsync([FromBody] Cliente cliente)
 		{
-			var data = await _cliente.AddAsync(cliente);
-			await _unitOfWork.Commit();
-			return data is null ? null : Ok(data.Id);
+			try
+			{
+				var data = await _cliente.AddAsync(cliente);
+				await _unitOfWork.Commit();
+				return Ok(data);
+			}
+			catch (WebException ex) { return BadRequest(ex.Message); }
+			catch (Exception ex) { return BadRequest(ex.Message); }
 		}
 
 		[HttpPost]
@@ -52,7 +69,8 @@ namespace Colorado.Web.Api.Controller
 				await _cliente.UpdateAsync(cliente);
 				await _unitOfWork.Commit();
 			}
-			catch { return null; }
+			catch (WebException ex) { return BadRequest(ex.Message); }
+			catch (Exception ex) { return BadRequest(ex.Message); }
 			return Ok(true);
 		}
 
@@ -65,7 +83,8 @@ namespace Colorado.Web.Api.Controller
 				await _cliente.DeleteAsync(cliente);
 				await _unitOfWork.Commit();
 			}
-			catch { return null; }
+			catch (WebException ex) { return BadRequest(ex.Message); }
+			catch (Exception ex) { return BadRequest(ex.Message); }
 			return Ok(true);
 		}
 	}
