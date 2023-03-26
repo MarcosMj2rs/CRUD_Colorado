@@ -7,21 +7,21 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Colorado.WebApiConsumer.MVC": {
+    "Colorado.Web.Api.Consumer": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:44304;http://localhost:44303"
+      "applicationUrl": "https://localhost:9001;http://localhost:9000"
     }
   },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:45957",
-      "sslPort": 44303
+      "applicationUrl": "http://localhost:61207",
+      "sslPort": 44343
     }
   }
 }

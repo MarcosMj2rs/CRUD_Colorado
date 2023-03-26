@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Colorado.WebApiConsumer.MVC
+namespace Colorado.Web.Api.Consumer
 {
     public class Program
     {
