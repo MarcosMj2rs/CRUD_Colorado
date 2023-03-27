@@ -17,6 +17,8 @@ namespace Colorado.Web.Api.Consumer.Models
 
 		public string UF { get; set; }
 
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime DataCadastro { get; set; }
 
 	}

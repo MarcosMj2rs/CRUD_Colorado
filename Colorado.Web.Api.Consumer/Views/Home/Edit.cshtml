@@ -59,7 +59,7 @@
 				<div class="form-group">
 					@Html.LabelFor(model => model.DataCadastro, htmlAttributes: new { @class = "control-label col-md-2" })
 					<div class="col-md-10">
-						@Html.TextBoxFor(model => model.DataCadastro, htmlAttributes: new { @class = "form-control" })
+						@Html.EditorFor(model => model.DataCadastro, new { htmlAttributes = new { @class = "form-control", @required="required" }})
 						@Html.ValidationMessageFor(model => model.DataCadastro, "", new { @class = "text-danger" })
 					</div>
 				</div>
@@ -73,3 +73,11 @@
 <div>
 	<a asp-action="Index">Home</a>
 </div>
+<script>
+	window.onload = function ()
+	{
+		//alert("Está carregado!");
+		var d = new Date("2017-03-16T17:46:53.677");
+		document.getElementById('DataCadastro').innerHTML = d.toLocaleString("pt-BR");
+	}
+</script>

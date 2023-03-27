@@ -34,6 +34,12 @@ namespace Colorado.Web.Api.RestFull
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			//copie a partit daqui
+			var cultureInfo = new CultureInfo("pt-BR");
+			cultureInfo.NumberFormat.CurrencySymbol = "R$";
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 			string[] urls = "*,*".Split(",");
 
 			services.AddCors(options =>
