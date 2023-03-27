@@ -19,9 +19,9 @@ namespace Colorado.Web.Api.Consumer.Controllers
         private readonly string apiUrlCreate = "https://localhost:5001/api/Cliente/AddAsync";
         private readonly string apiUrlGetById = "https://localhost:5001/api/Cliente/GetByIdAsync";
         private readonly string apiUrlUpdate = "https://localhost:5001/api/Cliente/UpdateAsync";
+        private readonly string apiUrl = $"https://localhost:5001/api/Cliente/";
 
-
-		public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
@@ -32,7 +32,7 @@ namespace Colorado.Web.Api.Consumer.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(apiUrlHome))
+                using (var response = await httpClient.GetAsync(string.Concat(apiUrl, "GetAllAsync")))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     listaClientes = JsonConvert.DeserializeObject<IEnumerable<ClienteModel>>(apiResponse);
@@ -55,7 +55,7 @@ namespace Colorado.Web.Api.Consumer.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri(apiUrlCreate);
+                httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "AddAsync"));
                 var postTask = await httpClient.PostAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
 
                 if (postTask.IsSuccessStatusCode)
@@ -74,7 +74,7 @@ namespace Colorado.Web.Api.Consumer.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri(apiUrlGetById);
+                httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "GetByIdAsync"));
                 var postTask = await httpClient.PostAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
 
                 if (postTask.IsSuccessStatusCode)
@@ -88,28 +88,42 @@ namespace Colorado.Web.Api.Consumer.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(ClienteModel cliente)
         {
-			if (cliente.Id == 0)
-				return BadRequest();
+            if (cliente.Id == 0)
+                return BadRequest();
 
-			using (var httpClient = new HttpClient())
-			{
-				httpClient.BaseAddress = new Uri(apiUrlUpdate);
-				var postTask = await httpClient.PutAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "UpdateAsync"));
+                var postTask = await httpClient.PutAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
 
-				if (postTask.IsSuccessStatusCode)
-					return RedirectToAction("index");
-			}
+                if (postTask.IsSuccessStatusCode)
+                    return RedirectToAction("index");
+            }
 
-			ModelState.AddModelError(string.Empty, "Erro no Processar página.");
-			return RedirectToAction("edit");
-		}
-
-
-
-		public IActionResult Privacy()
-        {
-            return View();
+            ModelState.AddModelError(string.Empty, "Erro no Processar página.");
+            return RedirectToAction("error");
         }
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            using (var httpClient = new HttpClient())
+            {
+                ClienteModel cliente = new ClienteModel { Id = id };
+                httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "DeleteAsync"));
+                var postTask = await httpClient.PostAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
+
+                if (postTask.IsSuccessStatusCode)
+                    return RedirectToAction("index");
+            }
+
+            ModelState.AddModelError(string.Empty, "Erro no Processar requisição.");
+            return RedirectToAction("error");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

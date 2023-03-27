@@ -68,9 +68,10 @@
 															 Endereco=item.Endereco,
 															 Cidade=item.Cidade,
 															 Uf=item.UF, 
-															 DataCadastro=item.DataCadastro }) |
+															 DataCadastro= item.DataCadastro }) |
 
-					@Html.ActionLink("Deletar", "Delete", new { id=item.Id })
+					@Html.ActionLink("Deletar", "Delete", new { id = item.Id },
+				new { onclick = $"return confirm('Deseja realmente deletar este cliente: {item.Nome}?');" })
 				</td>
 			</tr>
 		}

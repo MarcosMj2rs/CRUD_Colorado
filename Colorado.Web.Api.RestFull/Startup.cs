@@ -5,6 +5,7 @@ using Colorado.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,6 +69,17 @@ namespace Colorado.Web.Api.RestFull
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var cultureInfo = new CultureInfo("pt-BR");
+			cultureInfo.NumberFormat.CurrencySymbol = "R$";
+
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+			app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture(cultureInfo)
+			});
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
