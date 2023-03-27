@@ -60,7 +60,7 @@ namespace Colorado.Web.Api.Controller
 			catch (Exception ex) { return BadRequest(ex.Message); }
 		}
 
-		[HttpPost]
+		[HttpPut]
 		[Route("UpdateAsync")]
 		public async Task<IActionResult> UpdateAsync([FromBody] Cliente cliente)
 		{

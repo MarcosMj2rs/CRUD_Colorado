@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Colorado.Web.Api.Consumer.Models
 {
@@ -16,6 +17,8 @@ namespace Colorado.Web.Api.Consumer.Models
 
 		public string UF { get; set; }
 
+		[DataType(DataType.Date)]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime DataCadastro { get; set; }
 
 	}

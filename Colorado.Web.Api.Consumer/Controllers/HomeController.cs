@@ -18,8 +18,10 @@ namespace Colorado.Web.Api.Consumer.Controllers
         private readonly string apiUrlHome = "https://localhost:5001/api/Cliente/GetAllAsync";
         private readonly string apiUrlCreate = "https://localhost:5001/api/Cliente/AddAsync";
         private readonly string apiUrlGetById = "https://localhost:5001/api/Cliente/GetByIdAsync";
+        private readonly string apiUrlUpdate = "https://localhost:5001/api/Cliente/UpdateAsync";
 
-        public HomeController(ILogger<HomeController> logger)
+
+		public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
@@ -83,10 +85,28 @@ namespace Colorado.Web.Api.Consumer.Controllers
             return RedirectToAction("edit");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Update(ClienteModel cliente)
+        {
+			if (cliente.Id == 0)
+				return BadRequest();
+
+			using (var httpClient = new HttpClient())
+			{
+				httpClient.BaseAddress = new Uri(apiUrlUpdate);
+				var postTask = await httpClient.PutAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, cliente);
+
+				if (postTask.IsSuccessStatusCode)
+					return RedirectToAction("index");
+			}
+
+			ModelState.AddModelError(string.Empty, "Erro no Processar página.");
+			return RedirectToAction("edit");
+		}
 
 
 
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }
