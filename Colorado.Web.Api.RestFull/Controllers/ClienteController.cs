@@ -87,5 +87,19 @@ namespace Colorado.Web.Api.Controller
 			catch (Exception ex) { return BadRequest(ex.Message); }
 			return Ok(true);
 		}
+
+		[HttpGet]
+		[Route("GetNewCode")]
+		public async Task<string> GetNewCode()
+		{
+			return await Task.Run(() =>
+			{
+				return (Guid.NewGuid()
+							.ToString()
+							.ToUpper()
+							.Replace("-", string.Empty)
+							.Substring(0, 19));
+			});
+		}
 	}
 }

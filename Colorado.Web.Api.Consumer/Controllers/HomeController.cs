@@ -1,6 +1,7 @@
 ﻿using Colorado.Core.Entities;
 using Colorado.Web.Api.Consumer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -16,11 +17,14 @@ namespace Colorado.Web.Api.Consumer.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly string apiUrl = $"https://localhost:5001/api/Cliente/";
+		private readonly IConfiguration _config;
+		private string apiUrl { get; set; }
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IConfiguration config)
 		{
 			_logger = logger;
+			_config = config;
+			apiUrl = $"{_config.GetSection("AppSettings:urlApi").Value}";
 		}
 
 		public async Task<IActionResult> Index()
@@ -39,9 +43,16 @@ namespace Colorado.Web.Api.Consumer.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Create()
+		public async Task<ActionResult> Create()
 		{
-			return View();
+			using (var httpClient = new HttpClient())
+			{
+				httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "GetNewCode"));
+				var postTask = await httpClient.GetStringAsync(httpClient.BaseAddress.AbsoluteUri);
+
+				var cliente = new ClienteModel { CodigoCliente = postTask, DataCadastro = DateTime.Now.Date };
+				return View(cliente);
+			}
 		}
 
 		[HttpPost]
@@ -128,6 +139,21 @@ namespace Colorado.Web.Api.Consumer.Controllers
 			return RedirectToAction("error");
 		}
 
+		[HttpGet]
+		public async Task<ActionResult> GetNewCode()
+		{
+			using (var httpClient = new HttpClient())
+			{
+				httpClient.BaseAddress = new Uri(string.Concat(apiUrl, "GetNewCode"));
+				var postTask = await httpClient.PostAsJsonAsync<ClienteModel>(httpClient.BaseAddress.AbsoluteUri, null);
+
+				if (postTask.IsSuccessStatusCode)
+					return RedirectToAction("index");
+			}
+
+			ModelState.AddModelError(string.Empty, "Erro no Processar requisição.");
+			return RedirectToAction("error");
+		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
