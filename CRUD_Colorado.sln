@@ -14,7 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LEIA_ME.txt = LEIA_ME.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorado.Web.Api.Consumer", "Colorado.Web.Api.Consumer\Colorado.Web.Api.Consumer.csproj", "{295A50D4-9746-45DC-9964-D8AEBB8B548F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colorado.Web.Api.Consumer", "Colorado.Web.Api.Consumer\Colorado.Web.Api.Consumer.csproj", "{295A50D4-9746-45DC-9964-D8AEBB8B548F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorado.Migrations.Default", "Colorado.Migrations.Default\Colorado.Migrations.Default.csproj", "{682BEF60-1CDA-44AE-B9AD-A3A8DCE0F8DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{295A50D4-9746-45DC-9964-D8AEBB8B548F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{295A50D4-9746-45DC-9964-D8AEBB8B548F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{295A50D4-9746-45DC-9964-D8AEBB8B548F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{682BEF60-1CDA-44AE-B9AD-A3A8DCE0F8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{682BEF60-1CDA-44AE-B9AD-A3A8DCE0F8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{682BEF60-1CDA-44AE-B9AD-A3A8DCE0F8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{682BEF60-1CDA-44AE-B9AD-A3A8DCE0F8DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
